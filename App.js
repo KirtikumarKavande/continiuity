@@ -1,44 +1,23 @@
-// function createCounter() {
-//   let count = 0;
 
-//   function increment() {
-//     count++;
-//     console.log(count);
-//   }
+//bind
+let obj = {
+  name: "Iphone",
+  price: 100000,
+  rating: 4.3,
+};
+function showName() {
+  console.log("my name is",this.name);
+}
+let d = showName.bind(obj);
+d()
 
-//   function decrement() {
-//     count--;
-//     console.log(count);
-//   }
+//call 
+let obj2={
+  x:10,
+  getX:function(){
+    console.log(this.x)
+  }
+}
 
-//   return {
-//     increment,
-//     decrement,
-//   };
-// }
-
-// const counter = createCounter();
-// counter.increment(); // 1
-
-// counter.increment(); //2
-// counter.decrement(); //-1
-// obj={res:counter}
-
-let timer = 0;
-const btn = document.getElementById("btn");
-
-btn.addEventListener("click", () => {
-  setInterval(() => {
-    timer = timer + 1;
-    console.log("timer inside btn1", timer);
-  }, 2000);
-});
-
-const btn2 = document.getElementById("btn2");
-
-btn.addEventListener("mouseenter", () => {
-  timer = timer + 1;
-  console.log("timer inside btn2", timer);
-});
-
-console.log("timer outside", timer);
+   let t=obj.getX
+   t.call(obj)
