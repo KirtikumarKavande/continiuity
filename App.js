@@ -1,14 +1,13 @@
-function fetchData() {
-  fetch("https://jsonplaceholder.typicode.com/todos")
-    .then((response) => response.json())
-    .then((json) => {
-      console.log(json);
-      let info = document.getElementById("info");
-      json.forEach((item) => {
-       let div= document.createElement('div')
-       div.textContent=item.title
-       info.appendChild(div)
-      });
-    });
+/* styles.css */
+.message-box {
+  width:"300px";
+  height: "100px";
+  border: "1px solid #ccc";
+  padding: "10px";
+  box-sizing: "border-box";
+  resize:" vertical"; /* This allows the user to resize the box vertically */
 }
-fetchData();
+
+.message-box:focus {
+  outline: none; /* Removing default focus outline */
+}
