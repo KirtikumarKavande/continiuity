@@ -1,14 +1,18 @@
-var a;
-a=10
-console.log(a)
+function timeOut() {
+  return new Promise(function (resolve, reject) {
+    setTimeout(() => {
+      resolve("timeOut");
+    }, 5000);
+  });
+}
 
-/*
-it would have become something
-var a;
-a=10
-console.log(a)
-
-
-
-
-*/
+timeOut()
+  .then((data) => {
+    const dataFetch = fetch("https://jsonplaceholder.typicode.com/users");
+    return dataFetch
+  })
+  .then((res) => {
+    return res.json()
+  }).then((data) => {
+    console.log("data",data)
+  })
