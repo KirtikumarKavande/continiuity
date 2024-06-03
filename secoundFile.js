@@ -1,23 +1,15 @@
-//parent class
-class Product {
-  constructor(category, price) {
-    this.category = category;
-    this.price = price;
-  }
-  display() {
-    console.log("price", this.price);
-  }
+const fang={
+  name:"microsoft",
+  year:2024
 }
 
-const d = new Product();
-
-//extended class
-class mobile extends Product {
-  constructor(color, cat, rs) {
-    super(cat, rs);
-    this.color = color;
+const employee={
+  name:"kirtikumar",
+  role:"developer",
+  hobby(){
+    console.log("love to play cricket")
   }
 }
+fang.__proto__=employee
 
-const iphone = new mobile("black", "mobile", "10000");
-iphone.display();
+fang.hobby()
