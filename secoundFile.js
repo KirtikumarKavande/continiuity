@@ -18,6 +18,21 @@ class BuildQueue {
   printALLArray() {
     return this.queue;
   }
+  peek() {
+    return this.queue[0];
+  }
+  clear(){
+   return this.queue = [];
+  }
+  printQueue(){
+    let str=""
+    for (let i = 0; i < this.queue.length; i++) {
+      str+=this.queue[i]+"\n"
+
+      
+    }
+    return str
+  }
 }
 
 const queue = new BuildQueue();
@@ -29,3 +44,4 @@ queue.dequeue();
 console.log(queue.printALLArray());
 
 console.log(queue.isEmpty());
+console.log(queue.printQueue());
