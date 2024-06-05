@@ -1,28 +1,31 @@
-class stackBuilder {
+class BuildQueue {
   constructor() {
-    this.stack = [];
+    this.queue = [];
   }
-  push(data) {
-    this.stack.push(data);
-  }
-  pop() {
-    this.stack.pop();
+  enqueue(data) {
+    this.queue.push(data);
   }
 
-  size() {
-    return this.stack.length;
+  dequeue() {
+    if (!this.isEmpty()) {
+      return this.queue.shift();
+    }
   }
-  isIncludes(data) {
-  return this.stack.includes(data);
+  isEmpty() {
+    return this.queue.length === 0;
+  }
+
+  printALLArray() {
+    return this.queue;
   }
 }
 
-const stack=new stackBuilder();
-stack.push(1);
-stack.push(2);
-stack.push(3);
-stack.push(4);
-stack.push(5);
-stack.push({name:"kirtikumar"});
-console.log(stack.size());
-console.log(stack.isIncludes(9));
+const queue = new BuildQueue();
+queue.enqueue(1);
+queue.enqueue(2);
+queue.enqueue(3);
+queue.enqueue(4);
+queue.dequeue();
+console.log(queue.printALLArray());
+
+console.log(queue.isEmpty());
