@@ -1,21 +1,28 @@
-const fang={
-  name:"microsoft",
-  year:2024
-}
-const newObj = Object.create(fang, {
-  empName: { 
-    value: "kirtikumar"
-  },
-  role: { 
-    value: "developer"
-  },
-  hobby: {
-    value: function() {
-      console.log("love to play cricket");
-    }
+class stackBuilder {
+  constructor() {
+    this.stack = [];
   }
-});
+  push(data) {
+    this.stack.push(data);
+  }
+  pop() {
+    this.stack.pop();
+  }
 
+  size() {
+    return this.stack.length;
+  }
+  isIncludes(data) {
+  return this.stack.includes(data);
+  }
+}
 
-console.log(newObj.year);    
-
+const stack=new stackBuilder();
+stack.push(1);
+stack.push(2);
+stack.push(3);
+stack.push(4);
+stack.push(5);
+stack.push({name:"kirtikumar"});
+console.log(stack.size());
+console.log(stack.isIncludes(9));
