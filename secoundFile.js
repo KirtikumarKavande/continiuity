@@ -65,9 +65,25 @@ while (current.next == null || current.data !== 4) {
 linkedList.addNodeAtAnyPosition(current, 1000);
 
 LinkedList.prototype.deleteFirstNode = function () {
-  if(!this.head) return
-  this.head=this.head.next
+  if (!this.head) return;
+  this.head = this.head.next;
 };
 
-linkedList.deleteFirstNode()
+LinkedList.prototype.deleteLastNode = function () {
+
+  if (!this.head) return null;
+
+
+  if (!this.head.next) {
+    return null;
+  }
+
+  let secondLast = this.head;
+  while (secondLast.next.next) {
+    secondLast = secondLast.next;
+  }
+  secondLast.next = null;
+};
+
+linkedList.deleteLastNode();
 console.log(linkedList.printList());
