@@ -74,15 +74,13 @@ LinkedList.prototype.deleteFirstNode = function () {
 //delete last node
 
 LinkedList.prototype.deleteLastNode = function () {
-
   if (!this.head) return null;
 
-
   if (!this.head.next) {
-    this.head=null
+    this.head = null;
     return null;
   }
-   
+
   let secondLast = this.head;
   while (secondLast.next.next) {
     secondLast = secondLast.next;
@@ -90,5 +88,19 @@ LinkedList.prototype.deleteLastNode = function () {
   secondLast.next = null;
 };
 
-linkedList.deleteLastNode();
+LinkedList.prototype.deleteNodeByKey = function (key) {
+  if (!this.head) return;
+  if(this.head.data===key){
+    this.head=this.head.next
+  }
+  let current = this.head;
+  while (current.next !== null) {
+
+    if (current.next.data === key) {
+      current.next = current.next.next;
+    }
+    current = current.next;
+  }
+};
+linkedList.deleteNodeByKey(2);
 console.log(linkedList.printList());
