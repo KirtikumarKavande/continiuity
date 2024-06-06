@@ -1,47 +1,56 @@
-class BuildQueue {
-  constructor() {
-    this.queue = [];
-  }
-  enqueue(data) {
-    this.queue.push(data);
-  }
-
-  dequeue() {
-    if (!this.isEmpty()) {
-      return this.queue.shift();
-    }
-  }
-  isEmpty() {
-    return this.queue.length === 0;
-  }
-
-  printALLArray() {
-    return this.queue;
-  }
-  peek() {
-    return this.queue[0];
-  }
-  clear(){
-   return this.queue = [];
-  }
-  printQueue(){
-    let str=""
-    for (let i = 0; i < this.queue.length; i++) {
-      str+=this.queue[i]+"\n"
-
-      
-    }
-    return str
+class Node {
+  constructor(data, next = null) {
+    this.data = data;
+    this.next = next;
   }
 }
 
-const queue = new BuildQueue();
-queue.enqueue(1);
-queue.enqueue(2);
-queue.enqueue(3);
-queue.enqueue(4);
-queue.dequeue();
-console.log(queue.printALLArray());
+class LinkedList {
+  constructor() {
+    this.head = null;
+  }
+}
 
-console.log(queue.isEmpty());
-console.log(queue.printQueue());
+// inserting node at start when linked List is empty
+LinkedList.prototype.insertNodeAtStart = function (data) {
+  const newNode = new Node(data);
+  this.head = newNode;
+  return newNode;
+};
+
+// inserting node at the last
+LinkedList.prototype.insertNodeAtTheLast = function (data) {
+  const newNode = new Node(data);
+  if (!this.head) {
+    this.head = newNode;
+    return;
+  }
+  let last = this.head;
+
+  while (last.next !== null) {
+    last = last.next;
+  }
+
+  last.next = newNode;
+};
+
+// print the linked list
+LinkedList.prototype.printList = function () {
+  let current = this.head;
+  let str = "";
+  while (current !== null) {
+    console.log(current);
+    str += current.data + "->";
+    current = current.next;
+  }
+  return str;
+};
+
+const linkedList = new LinkedList();
+linkedList.insertNodeAtStart(2);
+linkedList.insertNodeAtTheLast(4);
+linkedList.insertNodeAtTheLast(5);
+linkedList.insertNodeAtTheLast(6);
+
+// Print the linked list to see its contents
+console.log(linkedList.printList());
