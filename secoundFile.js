@@ -39,11 +39,16 @@ LinkedList.prototype.printList = function () {
   let current = this.head;
   let str = "";
   while (current !== null) {
-    console.log(current);
     str += current.data + "->";
     current = current.next;
   }
   return str;
+};
+
+LinkedList.prototype.addNodeAtAnyPosition = function (prevNode, data) {
+  if (!prevNode) return "node can not be empty";
+  const newNode = new Node(data, prevNode.next);
+  prevNode.next = newNode;
 };
 
 const linkedList = new LinkedList();
@@ -52,5 +57,17 @@ linkedList.insertNodeAtTheLast(4);
 linkedList.insertNodeAtTheLast(5);
 linkedList.insertNodeAtTheLast(6);
 
-// Print the linked list to see its contents
+let current = linkedList.head;
+while (current.next == null || current.data !== 4) {
+  current = current.next;
+}
+
+linkedList.addNodeAtAnyPosition(current, 1000);
+
+LinkedList.prototype.deleteFirstNode = function () {
+  if(!this.head) return
+  this.head=this.head.next
+};
+
+linkedList.deleteFirstNode()
 console.log(linkedList.printList());
