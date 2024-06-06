@@ -45,6 +45,7 @@ LinkedList.prototype.printList = function () {
   return str;
 };
 
+//add node at any position
 LinkedList.prototype.addNodeAtAnyPosition = function (prevNode, data) {
   if (!prevNode) return "node can not be empty";
   const newNode = new Node(data, prevNode.next);
@@ -64,10 +65,13 @@ while (current.next == null || current.data !== 4) {
 
 linkedList.addNodeAtAnyPosition(current, 1000);
 
+//delete first node
 LinkedList.prototype.deleteFirstNode = function () {
   if (!this.head) return;
   this.head = this.head.next;
 };
+
+//delete last node
 
 LinkedList.prototype.deleteLastNode = function () {
 
@@ -75,9 +79,10 @@ LinkedList.prototype.deleteLastNode = function () {
 
 
   if (!this.head.next) {
+    this.head=null
     return null;
   }
-
+   
   let secondLast = this.head;
   while (secondLast.next.next) {
     secondLast = secondLast.next;
