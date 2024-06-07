@@ -26,8 +26,6 @@ DoublyLikedList.prototype.insertAtTheBeginning = function (data) {
 
 const doublyLikedList = new DoublyLikedList();
 
-doublyLikedList.insertAtTheBeginning(4);
-doublyLikedList.insertAtTheBeginning(5);
 
 DoublyLikedList.prototype.printList = function () {
   let current = this.head;
@@ -39,4 +37,18 @@ DoublyLikedList.prototype.printList = function () {
   }
   return str;
 };
+DoublyLikedList.prototype.insertNodeAtLast = function (data) {
+  const newNode = new Node(data, null, this.tail);
+  if (this.tail !== null) {
+    this.tail.next = newNode;
+  }
+  if (!this.head) {
+    this.head = newNode;
+  }
+  this.tail = newNode;
+};
+doublyLikedList.insertNodeAtLast(7)
+doublyLikedList.insertNodeAtLast(8)
+doublyLikedList.insertNodeAtLast(9)
+
 console.log(doublyLikedList.printList());
