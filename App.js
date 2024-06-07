@@ -1,13 +1,42 @@
-/* styles.css */
-.message-box {
-  width:"300px";
-  height: "100px";
-  border: "1px solid #ccc";
-  padding: "10px";
-  box-sizing: "border-box";
-  resize:" vertical"; /* This allows the user to resize the box vertically */
+class Node {
+  constructor(data, next = null, prev = null) {
+    this.data = data;
+    this.next = next;
+    this.prev = prev;
+  }
+}
+class DoublyLikedList {
+  constructor() {
+    this.head = null;
+    this.tail = null;
+  }
 }
 
-.message-box:focus {
-  outline: none; /* Removing default focus outline */
-}
+DoublyLikedList.prototype.insertAtTheBeginning = function (data) {
+  const newNode = new Node(data, this.head, null);
+  if (this.head !== null) {
+    this.head.prev = newNode;
+  }
+
+  this.head = newNode;
+  if (this.tail === null) {
+    this.tail = newNode;
+  }
+};
+
+const doublyLikedList = new DoublyLikedList();
+
+doublyLikedList.insertAtTheBeginning(4);
+doublyLikedList.insertAtTheBeginning(5);
+
+DoublyLikedList.prototype.printList = function () {
+  let current = this.head;
+  let str = "";
+  while (current !== null) {
+    console.log(current.data);
+    str += current.data + "->";
+    current = current.next;
+  }
+  return str;
+};
+console.log(doublyLikedList.printList());
