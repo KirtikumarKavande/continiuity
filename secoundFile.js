@@ -90,17 +90,30 @@ LinkedList.prototype.deleteLastNode = function () {
 
 LinkedList.prototype.deleteNodeByKey = function (key) {
   if (!this.head) return;
-  if(this.head.data===key){
-    this.head=this.head.next
+  if (this.head.data === key) {
+    this.head = this.head.next;
   }
   let current = this.head;
   while (current.next !== null) {
-
     if (current.next.data === key) {
       current.next = current.next.next;
     }
     current = current.next;
   }
 };
-linkedList.deleteNodeByKey(2);
+// linkedList.deleteNodeByKey(2);
+
+LinkedList.prototype.reverseLinkedList = function () {
+  let currentNode = this.head;
+  let nextNode = null;
+  let prevNode = null;
+  while (currentNode) {
+    nextNode = currentNode.next;
+    currentNode.next = prevNode;
+    prevNode = currentNode;
+    currentNode=nextNode
+  }
+  this.head=prevNode           //don't forget to update head
+};
+linkedList.reverseLinkedList()
 console.log(linkedList.printList());
