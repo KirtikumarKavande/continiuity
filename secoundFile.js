@@ -59,7 +59,7 @@ linkedList.insertNodeAtTheLast(5);
 linkedList.insertNodeAtTheLast(6);
 
 let current = linkedList.head;
-while (current.next == null || current.data !== 4) {
+while (current !== null && current.data !== 6) {
   current = current.next;
 }
 
@@ -115,5 +115,5 @@ LinkedList.prototype.reverseLinkedList = function () {
   }
   this.head=prevNode           //don't forget to update head
 };
-linkedList.reverseLinkedList()
+// linkedList.reverseLinkedList()
 console.log(linkedList.printList());
