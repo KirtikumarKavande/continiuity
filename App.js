@@ -76,7 +76,18 @@ while (current !== null && current.data !== 10) {
   current = current.next;
 }
 
-doublyLikedList.insertNodeAfterGivenNode(current, 1000);
+// doublyLikedList.insertNodeAfterGivenNode(current, 1000);
+
+DoublyLikedList.prototype.deleteLastNode=function(){
+  if(!this.head) return
+  if(this.head===this.tail){
+    this.head=null
+    this.tail=null
+    return
+  }
+  this.tail=this.tail.prev
+  this.tail.next=null
+}
 
 DoublyLikedList.prototype.deleteFirstNode=function(){
   if(!this.head) return
@@ -88,5 +99,5 @@ DoublyLikedList.prototype.deleteFirstNode=function(){
   this.head=this.head.next
   this.head.prev=null
 }
-doublyLikedList.deleteFirstNode()
+doublyLikedList.deleteLastNode()
 console.log(doublyLikedList.printList());
