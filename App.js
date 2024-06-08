@@ -78,5 +78,15 @@ while (current !== null && current.data !== 10) {
 
 doublyLikedList.insertNodeAfterGivenNode(current, 1000);
 
-
+DoublyLikedList.prototype.deleteFirstNode=function(){
+  if(!this.head) return
+  if(this.head===this.tail){
+    this.head=null
+    this.tail=null
+    return
+  }
+  this.head=this.head.next
+  this.head.prev=null
+}
+doublyLikedList.deleteFirstNode()
 console.log(doublyLikedList.printList());
