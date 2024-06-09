@@ -67,9 +67,9 @@ DoublyLikedList.prototype.insertNodeAfterGivenNode = function (
 };
 doublyLikedList.insertNodeAtLast(7);
 doublyLikedList.insertNodeAtLast(8);
-// doublyLikedList.insertNodeAtLast(9);
+doublyLikedList.insertNodeAtLast(9);
 
-// doublyLikedList.insertNodeAtLast(10);
+doublyLikedList.insertNodeAtLast(10);
 
 let current = doublyLikedList.head;
 while (current !== null && current.data !== 10) {
@@ -78,26 +78,41 @@ while (current !== null && current.data !== 10) {
 
 // doublyLikedList.insertNodeAfterGivenNode(current, 1000);
 
-DoublyLikedList.prototype.deleteLastNode=function(){
-  if(!this.head) return
-  if(this.head===this.tail){
-    this.head=null
-    this.tail=null
-    return
+DoublyLikedList.prototype.deleteLastNode = function () {
+  if (!this.head) return;
+  if (this.head === this.tail) {
+    this.head = null;
+    this.tail = null;
+    return;
   }
-  this.tail=this.tail.prev
-  this.tail.next=null
-}
+  this.tail = this.tail.prev;
+  this.tail.next = null;
+};
 
-DoublyLikedList.prototype.deleteFirstNode=function(){
-  if(!this.head) return
-  if(this.head===this.tail){
-    this.head=null
-    this.tail=null
-    return
+DoublyLikedList.prototype.deleteFirstNode = function () {
+  if (!this.head) return;
+  if (this.head === this.tail) {
+    this.head = null;
+    this.tail = null;
+    return;
   }
-  this.head=this.head.next
-  this.head.prev=null
-}
-doublyLikedList.deleteLastNode()
+  this.head = this.head.next;
+  this.head.prev = null;
+};
+
+DoublyLikedList.prototype.reverseLinkedList = function () {
+  let current = this.head;
+  let temp = null;
+  while (current) {
+    temp = current.prev;
+    current.prev = current.next;
+    current.next = temp;
+    current = current.prev;
+  }
+
+  this.tail = this.head;
+  this.head = temp.prev;
+};
+
+doublyLikedList.reverseLinkedList();
 console.log(doublyLikedList.printList());
