@@ -145,6 +145,24 @@ class BinarySearchTree {
       result.push(node.key);
     }
   }
+  deathFirstTraversal(root) {
+    let values = [];
+    if (!root) return values;
+    let stack = [root];
+
+    while (stack.length > 0) {
+      const poppedNode = stack.pop();
+      values.push(poppedNode.key);
+      if (poppedNode.right) {
+        stack.push(poppedNode.right);
+      }
+
+      if (poppedNode.left) {
+        stack.push(poppedNode.left);
+      }
+    }
+    return values;
+  }
 }
 
 // Example usage:
@@ -152,11 +170,12 @@ const bst = new BinarySearchTree();
 bst.insertNode(10);
 bst.insertNode(5);
 bst.insertNode(15);
-bst.insertNode(3); 
+bst.insertNode(3);
 bst.insertNode(7);
 bst.insertNode(12);
 bst.insertNode(17);
 bst.printTree();
+console.log("death first traversal", bst.deathFirstTraversal(bst.root));
 
 // bst.delete(17);
 
@@ -164,5 +183,5 @@ bst.printTree();
 bst.printTree();
 // Verify the tree with in-order traversal
 const inOrderResult = bst.inOrderTraversal(bst.root);
-console.log(bst.postOrderTraversal());
+// console.log(bst.postOrderTraversal());
 // console.log("In-order Traversal Result:", inOrderResult);
