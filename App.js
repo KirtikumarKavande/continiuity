@@ -65,7 +65,8 @@ class BinarySearchTree {
   }
 
   delete(key) {
-    this.root = this.deleteNode(this.root, key);
+    const x = this.deleteNode(this.root, key);
+    this.root = x;
   }
 
   deleteNode(node, key) {
@@ -77,7 +78,6 @@ class BinarySearchTree {
       return node;
     } else if (key > node.key) {
       node.right = this.deleteNode(node.right, key);
-      console.log("node check2",node)
 
       return node;
     } else {
@@ -94,14 +94,56 @@ class BinarySearchTree {
       let tempNode = this.findMinNode(node.right);
       node.key = tempNode.key;
       node.right = this.deleteNode(node.right, tempNode.key);
-      return node
+      return node;
     }
   }
   findMinNode(node) {
-    while (node.left!==null) {
+    while (node.left !== null) {
       node = node.left;
     }
     return node;
+  }
+
+  inOrderTraversalThoughtNode() {
+    const result = [];
+    this.inOrder(this.root, result);
+    return result;
+  }
+
+  inOrder(node, result) {
+    if (node !== null) {
+      this.inOrder(node.left, result);
+      result.push(node.key);
+      this.inOrder(node.right, result);
+    }
+  }
+
+  preOrderTraversal() {
+    const result = [];
+    this.preOrder(this.root, result);
+    return result;
+  }
+
+  preOrder(node, result) {
+    if (node !== null) {
+      result.push(node.key);
+      this.preOrder(node.left, result);
+      this.preOrder(node.right, result);
+    }
+  }
+
+  postOrderTraversal() {
+    const result = [];
+    this.postOrder(this.root, result);
+    return result;
+  }
+
+  postOrder(node, result) {
+    if (node !== null) {
+      this.postOrder(node.left, result);
+      this.postOrder(node.right, result);
+      result.push(node.key);
+    }
   }
 }
 
@@ -110,16 +152,17 @@ const bst = new BinarySearchTree();
 bst.insertNode(10);
 bst.insertNode(5);
 bst.insertNode(15);
-bst.insertNode(3);
+bst.insertNode(3); 
 bst.insertNode(7);
 bst.insertNode(12);
+bst.insertNode(17);
 bst.printTree();
 
-bst.delete(17);
+// bst.delete(17);
 
 // Print the tree structure
 bst.printTree();
-
 // Verify the tree with in-order traversal
 const inOrderResult = bst.inOrderTraversal(bst.root);
-console.log("In-order Traversal Result:", inOrderResult);
+console.log(bst.postOrderTraversal());
+// console.log("In-order Traversal Result:", inOrderResult);
