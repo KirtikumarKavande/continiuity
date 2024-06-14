@@ -145,7 +145,7 @@ class BinarySearchTree {
       result.push(node.key);
     }
   }
-  deathFirstTraversal(root) {
+  depthFirstTraversal(root) {
     let values = [];
     if (!root) return values;
     let stack = [root];
@@ -163,6 +163,17 @@ class BinarySearchTree {
     }
     return values;
   }
+
+  depthFirstTraversalRecursively(root) {
+    let values = [];
+    if (!root) {
+      return values;
+    }
+
+    const leftValue = this.depthFirstTraversalRecursively(root.left);
+    const rightValue = this.depthFirstTraversalRecursively(root.right);
+    return [root.key, ...leftValue, ...rightValue];
+  }
 }
 
 // Example usage:
@@ -175,7 +186,7 @@ bst.insertNode(7);
 bst.insertNode(12);
 bst.insertNode(17);
 bst.printTree();
-console.log("death first traversal", bst.deathFirstTraversal(bst.root));
+console.log("good", bst.depthFirstTraversalRecursively(bst.root));
 
 // bst.delete(17);
 
