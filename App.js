@@ -174,6 +174,22 @@ class BinarySearchTree {
     const rightValue = this.depthFirstTraversalRecursively(root.right);
     return [root.key, ...leftValue, ...rightValue];
   }
+
+  breathFirstTraversal(root) {
+    const queue = [root];
+    const values = [];
+    while (queue.length > 0) {
+      const node = queue.shift();
+      values.push(node.key)
+      if (node.left) {
+        queue.push(node.left);
+      }
+      if (node.right) {
+        queue.push(node.right);
+      }
+    }
+    return values
+  }
 }
 
 // Example usage:
@@ -186,7 +202,7 @@ bst.insertNode(7);
 bst.insertNode(12);
 bst.insertNode(17);
 bst.printTree();
-console.log("good", bst.depthFirstTraversalRecursively(bst.root));
+console.log("good", bst.breathFirstTraversal(bst.root));
 
 // bst.delete(17);
 
