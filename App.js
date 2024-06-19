@@ -1,37 +1,14 @@
-// let str = "kirtikumar";
-
-// let count = 0;
-// function countVowels(str) {
-//   console.log("rendered")
-//   const lastChar = str[str.length - 1]
-//   if (lastChar === "a" || lastChar === "e" || lastChar === "i" || lastChar === "o" || lastChar === "u") {
-//     count++;
-//   }
-//   if (str.length === 0) return;
-
-//   countVowels(str.substring(0, str.length - 1));
-// }
-
-// countVowels(str)
-// console.log(count)
-
-let str = "hello";
-
-function isVowel(character) {
-  let vowels = "aeiou";
-  if (vowels.includes(character)) {
-    return true;
-  } else {
-    return false;
+function findFirstOccurrence(array, toFind, startingIndex) {
+  if (array[startingIndex] === toFind) {
+    return startingIndex;
   }
-}
-
-function countVowels(str) {
-  if (str.length === 1) {
-    return Number(isVowel(str[0]));
+  if (array.length === startingIndex + 1) {
+    return -1;
   }
 
-  return countVowels(str.substring(0,str.length-1))+isVowel(str[str.length-1])
+  return findFirstOccurrence(array, toFind, startingIndex + 1);
 }
-
-console.log(countVowels(str))
+let array = [1, 3, 4, 5, 67, 35, 676, 1, 41];
+let toFind = 41;
+startingIndex = 0;
+console.log(findFirstOccurrence(array, toFind, startingIndex));
