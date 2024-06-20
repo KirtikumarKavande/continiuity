@@ -1,23 +1,25 @@
-// function countPowResult(num, pow) {
-//   let count=1
-//  return calculatingPower(num,pow,count)
-// }
+// function removeSpaces(str) {
+//   let newStr = "";
+//   for (let i = 0; i < str.length; i++) {
+//     if (str[i] === " " || str[i]==="\t") continue;
 
-// function calculatingPower(num,pow,count){
-//   if (pow === count) {
-//     return num;
+//     newStr += str[i];
 //   }
-
-//   return calculatingPower(num, pow,count+1) * num;
+//   return newStr
 // }
 
-// console.log(countPowResult(4, 3));
+// console.log(removeSpaces(str))
 
-function countPower(num,pow){
+let str = "kirt     iku\tmar";
 
-  if(pow===0) return 1
-  return countPower(num,pow-1)*num
+function removeSpacesAndTabsRecursively(str) {
+  if (str.length === 0) return "";
 
+  let firstLetter = str[0];
+  let restOfTheString = str.slice(1);
+  if (firstLetter === " " || firstLetter === "\t")
+    return removeSpacesAndTabsRecursively(restOfTheString);
+
+  return firstLetter + removeSpacesAndTabsRecursively(restOfTheString);
 }
-console.log(countPower(4,3)
-)
+console.log(removeSpacesAndTabsRecursively(str))
