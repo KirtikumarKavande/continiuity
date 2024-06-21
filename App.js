@@ -1,25 +1,53 @@
-// function removeSpaces(str) {
-//   let newStr = "";
+// function removeAdjustDuplicate(str) {
+//   let result = "";
 //   for (let i = 0; i < str.length; i++) {
-//     if (str[i] === " " || str[i]==="\t") continue;
-
-//     newStr += str[i];
+//     if (!str[i + 1] || str[i] !== str[i + 1]) {
+//       result += str[i];
+//     }
 //   }
-//   return newStr
+//   return result;
 // }
 
-// console.log(removeSpaces(str))
+// function removeAdjustDuplicateRecursively(str) {
+//   if (str.length === 1) return str;
 
-let str = "kirt     iku\tmar";
+//   let firstLetter = str[0];
+//   let restOfString = str.slice(1);
 
-function removeSpacesAndTabsRecursively(str) {
+//   if (firstLetter === restOfString[0])
+//     return removeAdjustDuplicateRecursively(restOfString);
+
+//   return firstLetter + removeAdjustDuplicateRecursively(restOfString);
+// }
+
+// let str = "aaaaabbbbbdbbccccccccccccc";
+// console.log(removeAdjustDuplicateRecursively(str));
+
+function removeAllConsecutiveDuplicates(str) {
+  let stack = [];
+  return removeAdjustDuplicateRecursively(str, stack);
+}
+
+function removeAdjustDuplicateRecursively(str, stack) {
+  if (str.length === 0 && str !== stack[stack.length - 1]) return str;
   if (str.length === 0) return "";
 
   let firstLetter = str[0];
-  let restOfTheString = str.slice(1);
-  if (firstLetter === " " || firstLetter === "\t")
-    return removeSpacesAndTabsRecursively(restOfTheString);
+  let restOfString = str.slice(1);
 
-  return firstLetter + removeSpacesAndTabsRecursively(restOfTheString);
+  if (firstLetter === restOfString[0]) {
+    stack.push(firstLetter);
+
+    return removeAdjustDuplicateRecursively(restOfString, stack);
+  }
+  if (firstLetter === stack[stack.length - 1]) {
+    stack=[]
+    return removeAdjustDuplicateRecursively(restOfString, stack);
+  }
+  console.log(stack)
+
+  return firstLetter + removeAdjustDuplicateRecursively(restOfString, stack);
 }
-console.log(removeSpacesAndTabsRecursively(str))
+let str = "a";
+
+console.log(removeAllConsecutiveDuplicates(str));
