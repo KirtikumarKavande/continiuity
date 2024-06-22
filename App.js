@@ -1,7 +1,11 @@
-const findLengthOfStringRecursively = (str) => {
-  if (str.length === 0) return 0;
+const isPalindrome = (str) => {
+  if (str.length <= 1) return true;
 
-  return findLengthOfStringRecursively(str.substring(1)) + 1;
+  if (str[0] === str[str.length - 1]) {
+   return isPalindrome(str.substring(1, str.length - 1));
+  }else{
+    return false
+  }
 };
-let str = "kirtikumar";
-console.log(findLengthOfStringRecursively(str));
+let str = "madam";
+console.log(isPalindrome(str));
