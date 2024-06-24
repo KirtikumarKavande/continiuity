@@ -6,24 +6,15 @@ const graph = {
   e: ["b"],
 };
 
-function deathTraversalGraph(graph, startNode) {
-  let stack = [startNode];
-  let nodeVisited = new Set();
-  let result=[]
+function depthFirstTraversalRecursively(graph, start, visitedNode = new Set()) {
+  if (!visitedNode.has(start)) {
+    visitedNode.add(start);
 
-  while (stack.length !== 0) {
-    let node = stack.pop(); 
-    if (!nodeVisited.has(node)) {
-      nodeVisited.add(node); 
-      result.push(nodeVisited)
-      for (neighbor of graph[node]) {
-        if (!nodeVisited.has(neighbor)) {
-          stack.push(neighbor);
-        }
-      }
+    for (neighbor of graph[start]) {
+      depthFirstTraversalRecursively(graph, neighbor, visitedNode);
     }
   }
-  return nodeVisited
+  return visitedNode;
 }
-console.log(deathTraversalGraph(graph,'a')
-)
+
+console.log(depthFirstTraversalRecursively(graph, "a"));
