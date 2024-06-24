@@ -1,13 +1,29 @@
-function balanceParametersOfSameType(array, startingIndex = 0, count = 0) {
-  if (startingIndex === array.length && count === 0) return true;
-  if (count < 0) return false;
+const graph = {
+  a: ["b", "c"],
+  b: ["c", "d"],
+  c: ["d", "e"],
+  d: [],
+  e: ["b"],
+};
 
-  if (array[startingIndex] === "(") {
-    return balanceParametersOfSameType(array, startingIndex + 1, count + 1);
-  } else if (array[startingIndex] === ")") {
-    return balanceParametersOfSameType(array, startingIndex + 1, count - 1);
+function deathTraversalGraph(graph, startNode) {
+  let stack = [startNode];
+  let nodeVisited = new Set();
+  let result=[]
+
+  while (stack.length !== 0) {
+    let node = stack.pop(); 
+    if (!nodeVisited.has(node)) {
+      nodeVisited.add(node); 
+      result.push(nodeVisited)
+      for (neighbor of graph[node]) {
+        if (!nodeVisited.has(neighbor)) {
+          stack.push(neighbor);
+        }
+      }
+    }
   }
-  return false
+  return nodeVisited
 }
-let array = ["(", "(", ")", ")", "(", ")"];
-console.log(balanceParametersOfSameType(array));
+console.log(deathTraversalGraph(graph,'a')
+)
