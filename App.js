@@ -1,9 +1,6 @@
-const edges = [
-  ["b", "a"],
-  ["c", "a"],
-  ["b", "c"],
-  ["r","s"]
-];
+const edges = [["a", "b"], ["b", "c"], ["d"], ["e"]];
+// Expected output: 3
+
 function createGraph(edges) {
   let graph = {};
   for (const edge of edges) {
@@ -22,25 +19,32 @@ function createGraph(edges) {
 }
 const graph = createGraph(edges);
 
-function findingNumberOfIsland(graph) {
+function findingLargestIsland(graph) {
   let nodeVisited = new Set();
   let count = 0;
+  let largestIsland=0
 
-  function DFS(node) {
+  function DFS(node,currentCount) {
     for (const iterator of graph[node]) {
       if (!nodeVisited.has(iterator)) {
         nodeVisited.add(iterator);
-        DFS(iterator);
+        currentCount++ 
+        DFS(iterator,currentCount);
       }
+    }
+    console.log(currentCount)
+    if(currentCount>largestIsland){
+      largestIsland=currentCount
     }
   }
   for (const node in graph) {
+    let currentCount=1
     if (!nodeVisited.has(node)) {
       nodeVisited.add(node);
-      DFS(node);
+      DFS(node,currentCount);
       count++;
     }
   }
-  return count;
+  return largestIsland;
 }
-console.log(findingNumberOfIsland(graph));
+console.log(findingLargestIsland(graph));
