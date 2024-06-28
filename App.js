@@ -2,6 +2,7 @@ const edges = [
   ["b", "a"],
   ["c", "a"],
   ["b", "c"],
+  ["r","s"]
 ];
 function createGraph(edges) {
   let graph = {};
@@ -21,19 +22,25 @@ function createGraph(edges) {
 }
 const graph = createGraph(edges);
 
-function DFSForGraph(graph, start, dest, visitedNode = new Set()) {
-  const stack = [start];
-  while (stack.length !== 0) {
-    const node = stack.pop();
-    if (visitedNode.has(node)) return false;
+function findingNumberOfIsland(graph) {
+  let nodeVisited = new Set();
+  let count = 0;
 
-    visitedNode.add(node);
-    if (node === dest) return true;
-    for (const ele of graph[node]) {
-      stack.push(ele);
+  function DFS(node) {
+    for (const iterator of graph[node]) {
+      if (!nodeVisited.has(iterator)) {
+        nodeVisited.add(iterator);
+        DFS(iterator);
+      }
     }
   }
-  return false;
+  for (const node in graph) {
+    if (!nodeVisited.has(node)) {
+      nodeVisited.add(node);
+      DFS(node);
+      count++;
+    }
+  }
+  return count;
 }
-
-console.log(DFSForGraph(graph, "a", "c"));
+console.log(findingNumberOfIsland(graph));
