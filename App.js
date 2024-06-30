@@ -1,5 +1,4 @@
 const edges = [["a", "b"], ["b", "c"], ["d"], ["e"]];
-// Expected output: 3
 
 function createGraph(edges) {
   let graph = {};
@@ -8,43 +7,44 @@ function createGraph(edges) {
     if (!(x in graph)) {
       graph[x] = [];
     }
-    if (!(y in graph)) {
-      graph[y] = [];
+    if (y) {  // Check if y exists (for single node cases)
+      if (!(y in graph)) {
+        graph[y] = [];
+      }
+      graph[x].push(y);
+      graph[y].push(x);
     }
-
-    graph[x].push(y);
-    graph[y].push(x);
   }
   return graph;
 }
-const graph = createGraph(edges);
+
+let graph = createGraph(edges);
 
 function findingLargestIsland(graph) {
   let nodeVisited = new Set();
-  let count = 0;
-  let largestIsland=0
+  let largestNode = 0;
 
-  function DFS(node,currentCount) {
-    for (const iterator of graph[node]) {
-      if (!nodeVisited.has(iterator)) {
-        nodeVisited.add(iterator);
-        currentCount++ 
-        DFS(iterator,currentCount);
+  function dfs(node) {
+    if (nodeVisited.has(node)) {
+      return 0;
+    }
+    nodeVisited.add(node);  // Mark as visited
+    let size = 1;
+    for (const neighbour of graph[node]) {
+      size += dfs(neighbour);
+    }
+    return size;
+  }
+
+  for (const node in graph) {
+    if (!nodeVisited.has(node)) {
+      let numberOfConnection = dfs(node);
+      if (numberOfConnection > largestNode) {
+        largestNode = numberOfConnection;
       }
     }
-    console.log(currentCount)
-    if(currentCount>largestIsland){
-      largestIsland=currentCount
-    }
   }
-  for (const node in graph) {
-    let currentCount=1
-    if (!nodeVisited.has(node)) {
-      nodeVisited.add(node);
-      DFS(node,currentCount);
-      count++;
-    }
-  }
-  return largestIsland;
+  return largestNode;
 }
+
 console.log(findingLargestIsland(graph));
