@@ -1,50 +1,43 @@
-const edges = [["a", "b"], ["b", "c"], ["d"], ["e"]];
-
-function createGraph(edges) {
-  let graph = {};
-  for (const edge of edges) {
-    const [x, y] = edge;
-    if (!(x in graph)) {
-      graph[x] = [];
+const grid = [
+  ["L", "W", "W", "L", "W"],
+  ["L", "W", "W", "L", "L"],
+  ["W", "L", "L", "W", "W"],
+  ["W", "W", "W", "W", "W"],
+  ["W", "W", "L", "L", "L"],
+];
+function findingLand(grid) {
+  const rowLength = grid.length;
+  const colLength = grid[0].length;
+  const visited = new Set();
+  let count = 0;
+  function dfs(r, c) {
+    if (
+      r < 0 ||
+      r >= rowLength ||
+      c < 0 ||
+      c >= colLength ||
+      visited.has(r + "," + c) ||
+      grid[r][c] === "W"
+    ) {
+      return;
     }
-    if (y) {  // Check if y exists (for single node cases)
-      if (!(y in graph)) {
-        graph[y] = [];
-      }
-      graph[x].push(y);
-      graph[y].push(x);
-    }
-  }
-  return graph;
-}
-
-let graph = createGraph(edges);
-
-function findingLargestIsland(graph) {
-  let nodeVisited = new Set();
-  let largestNode = 0;
-
-  function dfs(node) {
-    if (nodeVisited.has(node)) {
-      return 0;
-    }
-    nodeVisited.add(node);  // Mark as visited
-    let size = 1;
-    for (const neighbour of graph[node]) {
-      size += dfs(neighbour);
-    }
-    return size;
+    visited.add(r + "," + c);
+    dfs(r - 1, c);
+    dfs(r + 1, c);
+    dfs(r, c - 1);
+    dfs(r, c + 1);
   }
 
-  for (const node in graph) {
-    if (!nodeVisited.has(node)) {
-      let numberOfConnection = dfs(node);
-      if (numberOfConnection > largestNode) {
-        largestNode = numberOfConnection;
+  for (let r = 0; r < rowLength; r++) {
+    for (let c = 0; c < colLength; c++) {
+      if (grid[r][c] === "L") {
+        if (!visited.has(r + "," + c)) {
+          count++;
+          dfs(r, c);
+        }
       }
     }
   }
-  return largestNode;
+  return count;
 }
-
-console.log(findingLargestIsland(graph));
+console.log(findingLand(grid));
