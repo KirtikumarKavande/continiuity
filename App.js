@@ -1,21 +1,24 @@
-var mergeAlternately = function(word1, word2) {
-  let i=0
-  let j=0
-  let str=""
-  while(word1[i]&& word2[j]){
-      str+=word1[i]
-      str+=word2[i]
-      i++
-      j++
-  }
-      while(i<word1.length){
+var canPlaceFlowers = function (flowerbed, n) {
+    let count = 0;
+    if(n===0) return true
 
-          str+=word1[i]
-          i++
+    for (let i = 0; i < flowerbed.length; i++) { 
+      if (
+        flowerbed[i] === 0 &&
+        (i === 0 || flowerbed[i - 1] === 0) && 
+        (i === flowerbed.length - 1 || flowerbed[i + 1] === 0) 
+      ) {
+        flowerbed[i] = 1;
+        count++;
+        if (count >= n) {
+          return true;
+        }
       }
-      while(j<word2.length){
-          str+=word2[j]
-          j++
-      }
-  return str
-};
+    }
+    return false;
+  };
+  
+  let flowerbed = [1, 0, 0, 0, 1];
+  let n = 1;
+  console.log(canPlaceFlowers(flowerbed, n)); // Output: true
+  
