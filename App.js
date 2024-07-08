@@ -1,24 +1,20 @@
-var canPlaceFlowers = function (flowerbed, n) {
-    let count = 0;
-    if(n===0) return true
-
-    for (let i = 0; i < flowerbed.length; i++) { 
-      if (
-        flowerbed[i] === 0 &&
-        (i === 0 || flowerbed[i - 1] === 0) && 
-        (i === flowerbed.length - 1 || flowerbed[i + 1] === 0) 
-      ) {
-        flowerbed[i] = 1;
-        count++;
-        if (count >= n) {
-          return true;
-        }
-      }
+var reverseVowels = function (s) {
+  let vowels = "aeiouAEIOU";
+  let i = 0;
+  let j = s.length - 1;
+  let arrayFromString = s.split("");
+  while (i < j) {
+    while (!vowels.includes(arrayFromString[i]) && i < j) {
+      i++;
     }
-    return false;
-  };
-  
-  let flowerbed = [1, 0, 0, 0, 1];
-  let n = 1;
-  console.log(canPlaceFlowers(flowerbed, n)); // Output: true
-  
+    while (!vowels.includes(arrayFromString[j]) && i < j) {
+      j--;
+    }
+    let temp = arrayFromString[j];
+    arrayFromString[j] = arrayFromString[i];
+    arrayFromString[i] = temp;
+    i++;
+    j--;
+  }
+  return arrayFromString.join("");
+};
