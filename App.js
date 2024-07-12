@@ -1,29 +1,18 @@
-var compress = function(chars) {
+var maxArea = function(height) {
+    let max=0
     let i=0
-    let j=0
-    let index=0
-   while(j<chars.length){
-
-   while(chars[i]===chars[j] && j<chars.length){
-    j++
-   }
-   chars[index++]=chars[j-1]
-   if(index<chars.length){
-    if(j-i>=10){
-        let stringFromNumber=(j-i).toString()
-        for(let k=0;k<stringFromNumber.length;k++){
-            chars[index++]=stringFromNumber[k]
+    let j=height.length-1
+    while(i<j){
+        let minHeight=Math.min(height[i],height[j])
+        let width=j-i
+        if((minHeight*width)>max){
+            max=minHeight*width
         }
-    }else if(j-i>1){
-        chars[index++]=j-i
-    }
-
-   }
-    i=j
-
-   }
-   return index
-
+        if(height[i]<height[j]){
+            i++
+        }else{
+            j--
+        }
+           }
+    return max
 };
-chars = ["a","b","b","b","b","b","b","b","b","b","b","b","b"]
-console.log(compress(chars))
