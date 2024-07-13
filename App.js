@@ -1,18 +1,18 @@
-var maxArea = function(height) {
-    let max=0
+var maxOperations = function(nums, k) {
+    let sortedArray=nums.sort((a,b)=>a-b)
     let i=0
-    let j=height.length-1
+    let j=sortedArray.length-1
+    let count=0
     while(i<j){
-        let minHeight=Math.min(height[i],height[j])
-        let width=j-i
-        if((minHeight*width)>max){
-            max=minHeight*width
-        }
-        if(height[i]<height[j]){
+        if(sortedArray[i]+sortedArray[j]===k){
+            count++
+            i++
+            j--
+        }else if(sortedArray[i]+sortedArray[j]<k){
             i++
         }else{
             j--
         }
-           }
-    return max
+    }
+    return count
 };
