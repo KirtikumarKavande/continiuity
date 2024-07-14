@@ -1,18 +1,17 @@
-var maxOperations = function(nums, k) {
-    let sortedArray=nums.sort((a,b)=>a-b)
+var findMaxAverage = function(nums, k) {
     let i=0
-    let j=sortedArray.length-1
-    let count=0
-    while(i<j){
-        if(sortedArray[i]+sortedArray[j]===k){
-            count++
-            i++
-            j--
-        }else if(sortedArray[i]+sortedArray[j]<k){
-            i++
-        }else{
-            j--
+  let maxSum=0
+   let sum=0
+
+   for(let i=0;i<k;i++){
+        sum+=nums[i]   
+   }
+   maxSum=sum
+    for(let i=k;i<nums.length;i++){
+        sum=sum-nums[i-k]+nums[i]
+        if(sum>maxSum){
+                maxSum=sum
         }
     }
-    return count
+    return (maxSum/k).toFixed(5)
 };
