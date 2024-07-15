@@ -1,17 +1,28 @@
-var findMaxAverage = function(nums, k) {
-    let i=0
-  let maxSum=0
-   let sum=0
-
-   for(let i=0;i<k;i++){
-        sum+=nums[i]   
-   }
-   maxSum=sum
-    for(let i=k;i<nums.length;i++){
-        sum=sum-nums[i-k]+nums[i]
-        if(sum>maxSum){
-                maxSum=sum
-        }
+var maxVowels = function (s, k) {
+  let currentVowelCount = 0;
+  let maxVowels = 0;
+  let vowelList = "aeiou";
+  for (let i = 0; i < k; i++) {
+    if (
+      s[i] === "a" ||
+      s[i] === "e" ||
+      s[i] === "i" ||
+      s[i] === "o" ||
+      s[i] === "u"
+    ) {
+      currentVowelCount++;
     }
-    return (maxSum/k).toFixed(5)
+  }
+  maxVowels = currentVowelCount;
+  for (let i = k; i < s.length; i++) {
+    if (!vowelList.includes(s[i]) && vowelList.includes(s[i - k])) {
+      currentVowelCount -= 1;
+    } else if (vowelList.includes(s[i]) && !vowelList.includes(s[i - k])) {
+      currentVowelCount += 1;
+    }
+    if (currentVowelCount > maxVowels) {
+      maxVowels = currentVowelCount;
+    }
+  }
+  return maxVowels;
 };
