@@ -1,28 +1,18 @@
-var maxVowels = function (s, k) {
-  let currentVowelCount = 0;
-  let maxVowels = 0;
-  let vowelList = "aeiou";
-  for (let i = 0; i < k; i++) {
-    if (
-      s[i] === "a" ||
-      s[i] === "e" ||
-      s[i] === "i" ||
-      s[i] === "o" ||
-      s[i] === "u"
-    ) {
-      currentVowelCount++;
+var longestOnes = function (nums, k) {
+  let left = 0;
+  let maxCount = 0;
+  let zerosCounter = 0;
+  for (let right = 0; right < nums.length; right++) {
+    if (nums[right] === 0) zerosCounter++;
+    while (zerosCounter > k) {
+      if (nums[left] === 0) {
+        zerosCounter--;
+      }
+      left++;
+    }
+    if (right - left + 1 > maxCount) {
+      maxCount = right - left + 1;
     }
   }
-  maxVowels = currentVowelCount;
-  for (let i = k; i < s.length; i++) {
-    if (!vowelList.includes(s[i]) && vowelList.includes(s[i - k])) {
-      currentVowelCount -= 1;
-    } else if (vowelList.includes(s[i]) && !vowelList.includes(s[i - k])) {
-      currentVowelCount += 1;
-    }
-    if (currentVowelCount > maxVowels) {
-      maxVowels = currentVowelCount;
-    }
-  }
-  return maxVowels;
+  return maxCount;
 };
