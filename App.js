@@ -1,27 +1,29 @@
-var closeStrings = function (word1, word2) {
-  let map1 = new Map();
+var equalPairs = function(grid) {
   let map2 = new Map();
-  if (word1.length !== word2.length) return false;
-  for (let i = 0; i < word1.length; i++) {
-    map1.set(word1[i], (map1.get(word1[i]) || 0) + 1);
-  }
-  for (let i = 0; i < word2.length; i++) {
-    map2.set(word2[i], (map2.get(word2[i]) || 0) + 1);
-  }
-
-  for (let key of map1.keys()) {
-    if (!map2.get(key)) {
-      return false;
+  let rowArray=[]
+  let count = 0;
+  const columns = [];
+  for (let col = 0; col < grid[0].length; col++) {
+    columns[col] = [];
+    for (let row = 0; row < grid.length; row++) {
+      columns[col].push(grid[row][col]);
     }
   }
-  let array1 = Array.from(map1.values());
-  let array2 = Array.from(map2.values());
-  array1 = array1.sort((a, b) => b - a);
-  array2 = array2.sort((a, b) => b - a);
-
-  if (array1.join("") === array2.join("")) {
-    return true;
-  } else {
-    return false;
+  for(let i of grid){
+   rowArray.push(i.join(",")) 
   }
-};
+  for (let index = 0; index < columns.length; index++) {
+    map2.set(
+      columns[index].join(","),
+      map2.get(columns[index].join(",")) ? map2.get(columns[index].join(",")) + 1 : 1
+    );
+  }
+  let arr2 = Array.from(map2.keys());
+  rowArray.forEach((item) => {
+    if (map2.has(item)) {
+      count +=map2.get(item)
+    }
+  });
+  return count;
+  };
+  
