@@ -1,29 +1,38 @@
-var equalPairs = function(grid) {
-  let map2 = new Map();
-  let rowArray=[]
-  let count = 0;
-  const columns = [];
-  for (let col = 0; col < grid[0].length; col++) {
-    columns[col] = [];
-    for (let row = 0; row < grid.length; row++) {
-      columns[col].push(grid[row][col]);
+var asteroidCollision = function (asteroids) {
+  let stack = [];
+
+  for (let i = 0; i < asteroids.length; i++) {
+    let currentAsteroid = asteroids[i];
+
+    // Handle potential collisions
+    while (
+      stack.length > 0 &&
+      stack[stack.length - 1] > 0 &&
+      currentAsteroid < 0
+    ) {
+      let topAsteroid = stack[stack.length - 1];
+
+      if (topAsteroid < -currentAsteroid) {
+        // Top of stack is destroyed
+        stack.pop();
+        continue; // Continue to check for further collisions
+      } else if (topAsteroid === -currentAsteroid) {
+        // Both asteroids destroy each other
+        stack.pop();
+      }
+      // Current asteroid is destroyed in both cases
+      currentAsteroid = 0;
+      break;
+    }
+
+    // If current asteroid survives or there was no collision
+    if (currentAsteroid !== 0) {
+      stack.push(currentAsteroid);
     }
   }
-  for(let i of grid){
-   rowArray.push(i.join(",")) 
-  }
-  for (let index = 0; index < columns.length; index++) {
-    map2.set(
-      columns[index].join(","),
-      map2.get(columns[index].join(",")) ? map2.get(columns[index].join(",")) + 1 : 1
-    );
-  }
-  let arr2 = Array.from(map2.keys());
-  rowArray.forEach((item) => {
-    if (map2.has(item)) {
-      count +=map2.get(item)
-    }
-  });
-  return count;
-  };
-  
+
+  return stack;
+};
+
+let result = asteroidCollision([4, 2, -5]);
+console.log(result); // Output: [10]
