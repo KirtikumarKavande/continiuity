@@ -1,38 +1,23 @@
-var asteroidCollision = function (asteroids) {
+// "3[a2[c]]"  "3[a]2[bc]"
+var decodeString = function (s) {
   let stack = [];
-
-  for (let i = 0; i < asteroids.length; i++) {
-    let currentAsteroid = asteroids[i];
-
-    // Handle potential collisions
-    while (
-      stack.length > 0 &&
-      stack[stack.length - 1] > 0 &&
-      currentAsteroid < 0
-    ) {
-      let topAsteroid = stack[stack.length - 1];
-
-      if (topAsteroid < -currentAsteroid) {
-        // Top of stack is destroyed
-        stack.pop();
-        continue; // Continue to check for further collisions
-      } else if (topAsteroid === -currentAsteroid) {
-        // Both asteroids destroy each other
-        stack.pop();
-      }
-      // Current asteroid is destroyed in both cases
-      currentAsteroid = 0;
-      break;
-    }
-
-    // If current asteroid survives or there was no collision
-    if (currentAsteroid !== 0) {
-      stack.push(currentAsteroid);
+  let currentNum = 0;
+  let currentStr = "";
+  for (const char of s) {
+    if (char <= "9" && char >= "0") {
+      currentNum = currentNum * 10 + Number(char);
+    } else if (char === "[") {
+      stack.push(currentNum);
+      stack.push(currentStr);
+      currentNum = 0;
+      currentStr = "";
+    } else if (char === "]") {
+      let poppedString = stack.pop();
+      let poppedNum = stack.pop();
+      currentStr = poppedString + currentStr.repeat(poppedNum);
+    } else {
+      currentStr += char;
     }
   }
-
-  return stack;
+  return currentStr;
 };
-
-let result = asteroidCollision([4, 2, -5]);
-console.log(result); // Output: [10]
