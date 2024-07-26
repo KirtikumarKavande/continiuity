@@ -1,23 +1,22 @@
-// "3[a2[c]]"  "3[a]2[bc]"
-var decodeString = function (s) {
-  let stack = [];
-  let currentNum = 0;
-  let currentStr = "";
-  for (const char of s) {
-    if (char <= "9" && char >= "0") {
-      currentNum = currentNum * 10 + Number(char);
-    } else if (char === "[") {
-      stack.push(currentNum);
-      stack.push(currentStr);
-      currentNum = 0;
-      currentStr = "";
-    } else if (char === "]") {
-      let poppedString = stack.pop();
-      let poppedNum = stack.pop();
-      currentStr = poppedString + currentStr.repeat(poppedNum);
-    } else {
-      currentStr += char;
+var predictPartyVictory = function(senate) {
+    let Radiant=[]
+    let Dire=[]
+    let n=senate.length
+    for(let i=0;i<senate.length;i++){
+      if(senate[i]==="R"){
+          Radiant.push(i)
+      }else{
+          Dire.push(i)
+      }
     }
-  }
-  return currentStr;
-};
+    while(Dire.length!==0 && Radiant.length!==0){
+      rIndex=Radiant.shift()
+      sIndex=Dire.shift()
+      if(rIndex<sIndex){
+          Radiant.push(rIndex+n)
+      }else{
+          Dire.push(sIndex+n)
+      }
+    }
+     return Radiant.length!==0?"Radiant":"Dire"
+  };
