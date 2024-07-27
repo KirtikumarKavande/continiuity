@@ -1,22 +1,32 @@
-var predictPartyVictory = function(senate) {
-    let Radiant=[]
-    let Dire=[]
-    let n=senate.length
-    for(let i=0;i<senate.length;i++){
-      if(senate[i]==="R"){
-          Radiant.push(i)
-      }else{
-          Dire.push(i)
-      }
-    }
-    while(Dire.length!==0 && Radiant.length!==0){
-      rIndex=Radiant.shift()
-      sIndex=Dire.shift()
-      if(rIndex<sIndex){
-          Radiant.push(rIndex+n)
-      }else{
-          Dire.push(sIndex+n)
-      }
-    }
-     return Radiant.length!==0?"Radiant":"Dire"
-  };
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var deleteMiddle = function (head) {
+  last = head;
+  let lengthOfLL = 0;
+  while (last) {
+    lengthOfLL++;
+    last = last.next;
+  }
+  let middleOFLL = Math.floor(lengthOfLL / 2);
+  if (middleOFLL === 0) {
+    return (head = null);
+  }
+
+  let currentPostion = head;
+  while (middleOFLL !== 1) {
+    middleOFLL--;
+    currentPostion = currentPostion.next;
+  }
+  currentPostion.next = currentPostion.next.next;
+
+  return head;
+};
