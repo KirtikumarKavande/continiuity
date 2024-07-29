@@ -1,14 +1,15 @@
-var oddEvenList = function(head) {
-  if (!head) return null; 
- let odd=head
- let even=head.next
- evenHead=even
- while(even && even.next){
-     odd.next=even.next;
-     odd=odd.next
-     even.next=odd.next
-     even=even.next
- }
- odd.next=evenHead
- return head
+var reverseList = function (head) {
+  if (!head || !head.next) return head
+  let ith = null
+  let jth = head
+  let kth = head.next
+  while (jth) {
+    jth.next = ith;
+    ith = jth
+    jth = kth
+    if (kth) {
+      kth = kth.next
+    }
+  }
+  return ith
 };
