@@ -1,15 +1,31 @@
-var reverseList = function (head) {
-  if (!head || !head.next) return head
-  let ith = null
-  let jth = head
-  let kth = head.next
-  while (jth) {
-    jth.next = ith;
-    ith = jth
-    jth = kth
-    if (kth) {
-      kth = kth.next
+var pairSum = function (head) {
+  if (!head) return 0
+  let slow = head
+  let fast = head.next
+  while (fast?.next?.next) {
+    slow = slow.next
+    fast = fast.next.next
+  }
+  let secondHalf = null
+  let current = slow.next
+  let nxt = current.next
+
+  while (current) {
+    current.next = secondHalf
+    secondHalf = current
+    current = nxt
+    if (nxt) {
+      nxt = nxt.next
     }
   }
-  return ith
+  let max = 0
+  while (secondHalf) {
+    if (secondHalf.val + head.val > max) {
+      max = secondHalf.val + head.val
+    }
+    secondHalf = secondHalf.next
+    head = head.next
+  }
+  return max
+
 };
