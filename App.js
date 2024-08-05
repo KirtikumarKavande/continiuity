@@ -1,31 +1,13 @@
-var pairSum = function (head) {
-  if (!head) return 0
-  let slow = head
-  let fast = head.next
-  while (fast?.next?.next) {
-    slow = slow.next
-    fast = fast.next.next
+var maxDepth = function (root) {
+  // Base case: if the root is null, the depth is 0
+  if (root === null) {
+    return 0;
   }
-  let secondHalf = null
-  let current = slow.next
-  let nxt = current.next
 
-  while (current) {
-    current.next = secondHalf
-    secondHalf = current
-    current = nxt
-    if (nxt) {
-      nxt = nxt.next
-    }
-  }
-  let max = 0
-  while (secondHalf) {
-    if (secondHalf.val + head.val > max) {
-      max = secondHalf.val + head.val
-    }
-    secondHalf = secondHalf.next
-    head = head.next
-  }
-  return max
+  // Recursively calculate the depth of left and right subtrees
+  const leftDepth = maxDepth(root.left);
+  const rightDepth = maxDepth(root.right);
 
+  // The maximum depth is the larger of the two subtrees, plus 1 for the current node
+  return Math.max(leftDepth, rightDepth) + 1;
 };
