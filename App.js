@@ -1,13 +1,19 @@
-var maxDepth = function (root) {
-  // Base case: if the root is null, the depth is 0
-  if (root === null) {
-    return 0;
-  }
+var goodNodes = function (root) {
+    if (!root) return 0
+    let maxNodeUptilNow = root.val
+    let count = 1
+    function dfs(newRoot, currentMax) {
+        if (!newRoot) return;
+        if (newRoot.val >= currentMax) {
+            count++
+            currentMax = newRoot.val
+        }
+        dfs(newRoot.left, currentMax)
+        dfs(newRoot.right, currentMax)
+    }
 
-  // Recursively calculate the depth of left and right subtrees
-  const leftDepth = maxDepth(root.left);
-  const rightDepth = maxDepth(root.right);
+    dfs(root.left, maxNodeUptilNow)
+    dfs(root.right, maxNodeUptilNow)
 
-  // The maximum depth is the larger of the two subtrees, plus 1 for the current node
-  return Math.max(leftDepth, rightDepth) + 1;
+    return count
 };
