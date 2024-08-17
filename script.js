@@ -1,23 +1,22 @@
-
-let arr = [4, 5, 7, 9, 12, 16]
-
-
-function iterator() {
-  let i = -1
-  function next() {
-    i=i+1
-    return { value: arr[i], done: arr.length-1 === i }
-  }
-  return { next }
-}
-
-
-let iteratorObj = iterator()
-
-
-console.log(iteratorObj.next())
-console.log(iteratorObj.next())
-console.log(iteratorObj.next())
-console.log(iteratorObj.next())
-console.log(iteratorObj.next())
-console.log(iteratorObj.next())
+var longestZigZag = function(root) {
+  let maxLength = 0;
+  
+  const dfs = (node, direction, length) => {
+      if (!node) return;
+      
+      maxLength = Math.max(maxLength, length);
+      
+      if (direction === 'left') {
+          dfs(node.right, 'right', length + 1);
+          dfs(node.left, 'left', 1);
+      } else {
+          dfs(node.left, 'left', length + 1);
+          dfs(node.right, 'right', 1);
+      }
+  }; 
+  
+  dfs(root.left, 'left', 1);
+  dfs(root.right, 'right', 1);
+  
+  return maxLength;
+};
