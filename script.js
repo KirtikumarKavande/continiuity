@@ -1,26 +1,19 @@
-var isValidSudoku = function (board) {
-    let rows = Array.from({ length: 9 }, () => new Set());
-    let cols = Array.from({ length: 9 }, () => new Set());
-    let boxes = Array.from({ length: 9 }, () => new Set());
+var mergeTwoLists = function(list1, list2) {
+    let dummy = new ListNode();
+    let cur = dummy;
 
-    for (let r = 0; r < 9; r++) {
-        for (let c = 0; c < 9; c++) {
-            if (board[r][c] === '.') {
-                continue;
-            }
-
-            let value = board[r][c];
-            let boxIndex = Math.floor(r / 3) * 3 + Math.floor(c / 3);
-
-            if (rows[r].has(value) || cols[c].has(value) || boxes[boxIndex].has(value)) {
-                return false;
-            }
-
-            rows[r].add(value);
-            cols[c].add(value);
-            boxes[boxIndex].add(value);
+    while (list1 && list2) {
+        if (list1.val > list2.val) {
+            cur.next = list2;
+            list2 = list2.next;
+        } else {
+            cur.next = list1;
+            list1 = list1.next;
         }
+        cur = cur.next;
     }
 
-    return true;
+    cur.next = list1 || list2;
+
+    return dummy.next;    
 };
