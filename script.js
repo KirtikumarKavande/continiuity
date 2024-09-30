@@ -1,19 +1,24 @@
-Function.prototype.customApply=function(obj,args){
-let key=Symbol("uniqueKeyForApply")
-    obj[key]=this
-    return obj[key](...args)
+Function.prototype.customBind = function (obj, ...args) {
+    let key = Symbol("uniqueKeyForApply")
+    obj[key] = this
+    return function bindFn(...bindArgs) {
+        return obj[key](...args,...bindArgs)
+
+    }
 
 }
 
-let obj={
-    name:"kirti"
+let obj = {
+    name: "kirti"
 }
 
-function printName(tt,b,c){
-    console.log(this.name,tt,b)
+function printName(a, b, c) {
+    console.log(this.name, a, b)
 
     return "kkkk"
 }
 
 
-console.log(printName.customApply(obj,["a",2,3,5]))
+console.log(printName.customBind(obj, 1,)("supereb"))
+
+
