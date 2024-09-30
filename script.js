@@ -1,21 +1,19 @@
-Function.prototype.customCall=function(obj,...args){
-let key=Symbol("uniqueKeyForCall")
+Function.prototype.customApply=function(obj,args){
+let key=Symbol("uniqueKeyForApply")
     obj[key]=this
     return obj[key](...args)
 
 }
 
-
-
 let obj={
     name:"kirti"
 }
 
-function printName(msg,tt){
-    console.log(this.name,"message:"+msg,tt)
+function printName(tt,b,c){
+    console.log(this.name,tt,b)
 
     return "kkkk"
 }
 
 
-console.log(printName.customCall(obj,"how r u","supereb"))
+console.log(printName.customApply(obj,["a",2,3,5]))
