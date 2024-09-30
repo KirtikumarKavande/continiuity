@@ -1,19 +1,17 @@
 let array = [8, 3, 5, 7]
 
-Array.prototype.customMap = function (cb) {
+Array.prototype.customForEach = function (cb) {
     if (!this.length) {
         return
     }
     let result = []
     for (let i = 0; i < this.length; i++) {
-        result[i] = cb(this[i], i)
-    }
-    return result
+       cb(this[i], i)
+         }
 
 }
 
-const ans= array.customMap((item)=>{
-    return item*item
+const ans= array.customForEach((item)=>{
+            console.log(item*item) 
 })
 
-console.log(ans)
