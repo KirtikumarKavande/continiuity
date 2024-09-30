@@ -1,17 +1,24 @@
-let array = [8, 3, 5, 7]
+// let array = [8, 3, 5, 7]
 
-Array.prototype.customForEach = function (cb) {
-    if (!this.length) {
-        return
+// const result=array.reduce((acc,ele)=>{
+
+//   return acc+ele
+
+
+// })
+// console.log(result)
+
+
+Array.prototype.customReduce = function (callback, initialSum) {
+    let sum = initialSum || 0
+    for (let index = 0; index < this.length; index++) {
+     let result=callback(sum, this[index])
+      sum=result
     }
-    let result = []
-    for (let i = 0; i < this.length; i++) {
-       cb(this[i], i)
-         }
-
+    return sum
 }
-
-const ans= array.customForEach((item)=>{
-            console.log(item*item) 
+const result=[1,2,3].customReduce((acc,ele)=>{
+    return acc+ele*2
 })
 
+console.log(result)
