@@ -1,26 +1,19 @@
-let array = [1, 2, 4, [7, 8, [12, 4, 9], [92, 7]]]
+let array = [8, 3, 5, 7]
 
-
-Array.prototype.customFlat = function () {
-    let result = []
-    function flat(array) {
-        for (let i = 0; i < array.length; i++) {
-            if (Array.isArray(array[i])) {
-                flat(array[i])
-            } else {
-                result.push(array[i])
-            }
-        }
-     
-
+Array.prototype.customMap = function (cb) {
+    if (!this.length) {
+        return
     }
-        flat(this)
-
-  
+    let result = []
+    for (let i = 0; i < this.length; i++) {
+        result[i] = cb(this[i], i)
+    }
     return result
-
 
 }
 
+const ans= array.customMap((item)=>{
+    return item*item
+})
 
-console.log(array.customFlat())
+console.log(ans)
