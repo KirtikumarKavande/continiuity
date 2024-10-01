@@ -1,24 +1,23 @@
-Function.prototype.customBind = function (obj, ...args) {
-    let key = Symbol("uniqueKeyForApply")
-    obj[key] = this
-    return function bindFn(...bindArgs) {
-        return obj[key](...args,...bindArgs)
-
+Array.prototype.customFilter=function(cb){
+let arr=[]
+    for (let index = 0; index < this.length; index++) {
+         let result= cb(this[index],index)
+         if(result){
+            arr.push(this[index])
+         }
+        
     }
 
+    return arr
+
 }
 
-let obj = {
-    name: "kirti"
-}
+let res=[1,2,3,4,5].customFilter((item)=>{
+    return item/2
+})
+console.log(res)
 
-function printName(a, b, c) {
-    console.log(this.name, a, b)
-
-    return "kkkk"
-}
-
-
-console.log(printName.customBind(obj, 1,)("supereb"))
-
-
+let res2=[1,2,3,4,5].filter((item)=>{
+    return item/2
+})
+console.log(res2)
