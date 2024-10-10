@@ -1,0 +1,14 @@
+.grid-item{
+ color: red;
+ width: 20px;
+ height: 20px;
+ background-color: blue;
+ margin: 10px;
+ 
+}
+
+.main-grid{
+  display: grid;
+ grid-template-columns: repeat(4, 50px);
+
+}
