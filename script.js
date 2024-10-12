@@ -1,31 +1,28 @@
-// cb
-function download(url,cb) {
-    
-    setTimeout(()=>{
-        cb("hello world"+url)
-        cb("hello world"+url)
-        cb("hello world"+url)
-    },2000)
+let arr = [4, 5, 1, 9, 2]
+
+// bubble sort algo
+
+function bubbleSort(array) {
+    let isSwaped;
+    do {
+        isSwaped = false
+        for (let i = 0; i < array.length; i++) {
+            if (array[i] && array[i + 1] && array[i + 1] < array[i]) {
+                let temp = array[i]
+                array[i] = array[i + 1]
+                array[i + 1] = temp
+                isSwaped = true
+
+            }
+
+        }
+
+    } while (isSwaped)
+        return array
+
+
+
+
 }
 
-download("https://www.google.com",function(data){
-
-    console.log("downloaded",data)
-})
-
-// promise
-
-function fetachData(){
-    return new Promise((resolve, reject)=>{
-        setTimeout(()=>{
-            resolve("url")
-            resolve("url")
-            resolve("url")
-        },4000)
-    })
-}
-
-
-fetachData().then((data)=>{
-console.log("dataa",data)
-})
+console.log(bubbleSort(arr)) 
