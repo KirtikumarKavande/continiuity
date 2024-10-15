@@ -1,28 +1,34 @@
-let arr = [4, 5, 1, 9, 2]
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var decodeString = function(s) {
+    let stack = []; // Stack to store previous strings and numbers
+    let currentString = ""; // Current decoded string
+    let number = 0; // Number for repetition
 
-// bubble sort algo
-
-function bubbleSort(array) {
-    let isSwaped;
-    do {
-        isSwaped = false
-        for (let i = 0; i < array.length; i++) {
-            if (array[i] && array[i + 1] && array[i + 1] < array[i]) {
-                let temp = array[i]
-                array[i] = array[i + 1]
-                array[i + 1] = temp
-                isSwaped = true
-
-            }
-
+    for (let i = 0; i < s.length; i++) {
+        if (!isNaN(s[i])) {
+            // Build the number (it can be more than 1 digit, e.g., "12[ab]")
+            number = number * 10 + parseInt(s[i]);
+        } else if (s[i] === '[') {
+            // Push the current string and number onto the stack
+            stack.push(currentString);
+            stack.push(number);
+            currentString = ""; // Reset current string for the new section
+            number = 0; // Reset number after using
+        } else if (s[i] === ']') {
+            // Pop the number and previous string from the stack
+            let repeatTimes = stack.pop();
+            let previousString = stack.pop();
+            
+            // Repeat the current string and append to the previous string
+            currentString = previousString + currentString.repeat(repeatTimes);
+        } else {
+            // Append current character to the current string
+            currentString += s[i];
         }
+    }
 
-    } while (isSwaped)
-        return array
-
-
-
-
-}
-
-console.log(bubbleSort(arr)) 
+    return currentString;
+};
