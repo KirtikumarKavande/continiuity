@@ -1,179 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Improved Preconnect Test</title>
-
-    <script>
-        // Function to load image and measure detailed timings
-        async function testImageLoad(withPreconnect, trial) {
-            const timings = {
-                start: performance.now(),
-                connectionStart: 0,
-                connectionEnd: 0,
-                downloadStart: 0,
-                downloadEnd: 0
-            };
-            
-            if (withPreconnect) {
-                const link = document.createElement('link');
-                link.rel = 'preconnect';
-                link.href = 'https://images.unsplash.com';
-                link.crossOrigin = 'anonymous';
-                document.head.appendChild(link);
-            }
-            
-            // Create performance observer for resource timing
-            const observer = new PerformanceObserver((list) => {
-                const entries = list.getEntries();
-                const relevantEntry = entries[entries.length - 1];
-                if (relevantEntry) {
-                    timings.connectionStart = relevantEntry.connectStart;
-                    timings.connectionEnd = relevantEntry.connectEnd;
-                    timings.downloadStart = relevantEntry.responseStart;
-                    timings.downloadEnd = relevantEntry.responseEnd;
-                }
-            });
-            observer.observe({ entryTypes: ['resource'] });
-            
-            // Load image
-            const img = new Image();
-            const loadPromise = new Promise((resolve, reject) => {
-                img.onload = resolve;
-                img.onerror = reject;
-            });
-            
-            // Use different images to prevent caching
-            img.src = `https://images.unsplash.com/photo-1547481887-a26e2cacb5b2?w=${300 + trial}&nocache=${Date.now()}`;
-            await loadPromise;
-            
-            timings.end = performance.now();
-            observer.disconnect();
-            
-            return timings;
-        }
-
-        // Run multiple trials
-        async function runTests() {
-            const trials = 3;
-            const results = {
-                withPreconnect: [],
-                withoutPreconnect: []
-            };
-            
-            document.getElementById('results').innerHTML = 'Running tests...';
-            
-            for (let i = 0; i < trials; i++) {
-                document.getElementById('status').textContent = `Running trial ${i + 1} of ${trials}...`;
-                
-                // Test without preconnect
-                const withoutPreconnect = await testImageLoad(false, i);
-                results.withoutPreconnect.push(withoutPreconnect);
-                
-                // Small delay between tests
-                await new Promise(resolve => setTimeout(resolve, 500));
-                
-                // Test with preconnect
-                const withPreconnect = await testImageLoad(true, i);
-                results.withPreconnect.push(withPreconnect);
-                
-                // Delay between trials
-                await new Promise(resolve => setTimeout(resolve, 500));
-            }
-            
-            displayResults(results, trials);
-        }
-
-        function displayResults(results, trials) {
-            // Calculate averages
-            const calculateAverages = (timings) => {
-                const total = timings.reduce((acc, curr) => acc + (curr.end - curr.start), 0);
-                const avgConnection = timings.reduce((acc, curr) => 
-                    acc + (curr.connectionEnd - curr.connectionStart), 0) / trials;
-                const avgDownload = timings.reduce((acc, curr) => 
-                    acc + (curr.downloadEnd - curr.downloadStart), 0) / trials;
-                return {
-                    total: total / trials,
-                    connection: avgConnection,
-                    download: avgDownload
-                };
-            };
-
-            const withoutPreconnectAvg = calculateAverages(results.withoutPreconnect);
-            const withPreconnectAvg = calculateAverages(results.withPreconnect);
-
-            const resultsHTML = `
-                <h3>Results (Average of ${trials} trials):</h3>
-                <div class="result-grid">
-                    <div class="result-column">
-                        <h4>Without Preconnect:</h4>
-                        <p>Total: ${withoutPreconnectAvg.total.toFixed(2)}ms</p>
-                        <p>Connection: ${withoutPreconnectAvg.connection.toFixed(2)}ms</p>
-                        <p>Download: ${withoutPreconnectAvg.download.toFixed(2)}ms</p>
-                    </div>
-                    <div class="result-column">
-                        <h4>With Preconnect:</h4>
-                        <p>Total: ${withPreconnectAvg.total.toFixed(2)}ms</p>
-                        <p>Connection: ${withPreconnectAvg.connection.toFixed(2)}ms</p>
-                        <p>Download: ${withPreconnectAvg.download.toFixed(2)}ms</p>
-                    </div>
-                </div>
-                <div class="difference">
-                    <h4>Difference in Connection Time:</h4>
-                    <p>${(withoutPreconnectAvg.connection - withPreconnectAvg.connection).toFixed(2)}ms</p>
-                </div>
-            `;
-            
-            document.getElementById('results').innerHTML = resultsHTML;
-            document.getElementById('status').textContent = 'Tests completed!';
-        }
-    </script>
-    
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin: 10px 0;
-            cursor: pointer;
-        }
-        #status, #results {
-            margin: 20px 0;
-            padding: 15px;
-            background: #f0f0f0;
-            border-radius: 5px;
-        }
-        .result-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin: 20px 0;
-        }
-        .result-column {
-            padding: 15px;
-            background: white;
-            border-radius: 5px;
-        }
-        .difference {
-            margin-top: 20px;
-            padding: 15px;
-            background: white;
-            border-radius: 5px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editable Content Example</title>
 </head>
 <body>
-    <h1>Improved Preconnect Test</h1>
-    <p>This test will run multiple trials and show detailed connection timing breakdowns.</p>
-    
-    <button onclick="runTests()">Run Test</button>
-    <div id="status">Click "Run Test" to begin</div>
-    <div id="results"></div>
+
+  <h2>Edit this content</h2>
+  <div contenteditable="true" id="myContent" style="border: 1px solid #ccc; padding: 10px; width: 300px;">
+    Click here to edit this text.
+  </div>
+
+  <button onclick="saveContent()">Save Content</button>
+
+  <script>
+    function saveContent() {
+      const content = document.getElementById("myContent").innerText;
+      console.log("Saved content:", content);
+      alert("Content saved: " + content);
+    }
+  </script>
+
 </body>
 </html>
