@@ -1,72 +1,65 @@
-(function ( doc ) {
-    'use strict';
-    // Use a more terse method for getting by id
-    function getById ( id_string ) {
-      return doc.getElementById(id_string);
+class Node{
+  constructor(val){
+    this.val=val;
+    this.left=null
+    this.right=null;
+  }
+}
+
+class BST{
+  constructor(){
+    this.root=null
+    this.trackedNodeValues=[]
+
+  }
+
+  addNode(val){
+  let node= new Node(val)
+    
+  if(!this.root){
+   return this.root=node
+  }
+    this.placeNodeAtCorrectPosition(this.root,node)
+  }
+  placeNodeAtCorrectPosition(root,node){
+    if(node.val>root.val){
+      if(!root.right){
+        root.right=node
+      }else{
+        this.placeNodeAtCorrectPosition(root.right,node)
+      }
+    }else{
+        if(!root.left){
+          root.left=node
+        }else{
+          this.placeNodeAtCorrectPosition(root.left,node)
+        }
     }
   
-    function insertAfter( newEl, refEl ) {
-      refEl.parentNode.insertBefore(newEl, refEl.nextSibling);
-    }
-  
-    var editElement = getById('myContent');
-    var undoBtn = getById('undo');
-    var saveBtn = getById('save');
-    var originalContent = editElement.innerHTML;
-    var updatedContent = "";
-  
-    // if a user has refreshed the page, these declarations
-    // will make sure everything is back to square one.
-    undoBtn.disabled = true;
-    saveBtn.disabled = true;
-  
-    // create a redo button
-    var redoBtn = doc.createElement('button');
-    var redoLabel = doc.createTextNode('Redo');
-    redoBtn.id = 'redo';
-    redoBtn.className = 'btn';
-    redoBtn.hidden = true;
-    redoBtn.appendChild(redoLabel);
-    insertAfter( redoBtn, undo );
-  
-    // if the content has been changed, enable the save button
-    editElement.addEventListener('keypress', function () {
-      if ( editElement.innerHTML !== originalContent ) {
-        saveBtn.disabled = false;
-      }
-    });
-  
-    // on button click, save the updated content
-    // to the updatedContent var
-    saveBtn.addEventListener('click', function () {
-      // updates the myContent block to 'save'
-      // the new content to updatedContent var
-      updatedContent = getById('myContent').innerHTML;
-  
-      if ( updatedContent !== originalContent ) {
-        // Show the undo button in the case that you
-        // didn't like what you wrote and you want to
-        // go back to square one
-        undoBtn.disabled = false;
-      }
-    });
-  
-    // If you click the undo button,
-    // revert the innerHTML of the contenteditable area to
-    // the original statement that was there.
-    //
-    // Then add in a 'redo' button, to bring back the edited content
-    undoBtn.addEventListener('click', function() {
-      editElement.innerHTML = originalContent;
-      undoBtn.disabled = true;
-      redoBtn.hidden = false;
-    });
-  
-    redoBtn.addEventListener('click', function() {
-      editElement.innerHTML = updatedContent;
-      this.hidden = true;
-      undoBtn.disabled = false;
-      undoBtn.focus();
-    });
-  
-  })( document );
+  }
+
+
+  DFS(root=this.root){
+    if(!root) return "supereball"
+    this.trackedNodeValues.push(root.val)
+    this.DFS(root.left)
+    this.DFS(root.right)
+    return this.trackedNodeValues
+  }
+    //  check why  below giving you different answer death imp
+    // if(!root) return 
+    // if(!root) return null and 
+
+}
+
+
+
+let tree=new BST()
+tree.addNode(4)
+tree.addNode(3)
+tree.addNode(6)
+tree.addNode(8)
+tree.addNode(12)
+tree.addNode(2)
+console.log(tree.DFS()) 
+console.log(tree.DFS()) 

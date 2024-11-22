@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Editable Content Example</title>
 </head>
 <body>
+  <ul class="carousel">
+    <img src="img/carousel-1.jpg" fetchpriority="low">
+    <img src="img/carousel-2.jpg" fetchpriority="low">
+    <img src="img/carousel-3.jpg" fetchpriority="low">
+    <img src="img/carousel-4.jpg" fetchpriority="high">
+  </ul>
 
   <h2>Edit this content</h2>
   <div contenteditable="true" id="myContent" style="border: 1px solid #ccc; padding: 10px; width: 300px;">
@@ -21,6 +28,6 @@
       alert("Content saved: " + content);
     }
   </script>
-
+<script src="./index.js"></script>
 </body>
 </html>
