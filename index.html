@@ -1,33 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Editable Content Example</title>
+  <title>Document</title>
 </head>
 <body>
-  <ul class="carousel">
-    <img src="img/carousel-1.jpg" fetchpriority="low">
-    <img src="img/carousel-2.jpg" fetchpriority="low">
-    <img src="img/carousel-3.jpg" fetchpriority="low">
-    <img src="img/carousel-4.jpg" fetchpriority="high">
-  </ul>
+<div id="parent">
+  <div id="child"></div>
 
-  <h2>Edit this content</h2>
-  <div contenteditable="true" id="myContent" style="border: 1px solid #ccc; padding: 10px; width: 300px;">
-    Click here to edit this text.
-  </div>
+</div>
 
-  <button onclick="saveContent()">Save Content</button>
-
-  <script>
-    function saveContent() {
-      const content = document.getElementById("myContent").innerText;
-      console.log("Saved content:", content);
-      alert("Content saved: " + content);
-    }
-  </script>
 <script src="./index.js"></script>
 </body>
 </html>
