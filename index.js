@@ -1,20 +1,24 @@
 
-let p1=new Promise((resolve,reject)=>{
-  setTimeout(() => {
-  resolve("promise1")
-  }, 1000);
-
-})
-let p2=new Promise((resolve,reject)=>{
-  setTimeout(() => {
-  resolve("promise2")
-  }, 7000);
-
-})
-async function promiseDemo(){
-let data= await Promise.race([p1,p2])
-return data
+function printName(a,b) {
+  console.log(this.name)
+  console.log(a,b)
+  return "hello"
+}
+let obj={
+  name:"kirti"
+}
+Function.prototype.customCall=function(...rest){
+  let values=[...rest]
+ let [obj,...data]=values
+ let key=Symbol("uniqueKeyForCall")
+  let callObj={
+  ...obj,
+    [key]:this
+  }
+  return callObj[key](...data)
 
 }
-let data=promiseDemo()
-console.log(data)
+console.log(printName.customCall(obj,"1","2")) 
+
+
+
