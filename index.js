@@ -1,24 +1,16 @@
+let arr=[2,34,6,8]
+Array.prototype.customIterator=function(){
+let currIndex=-1
 
-function printName(a,b) {
-  console.log(this.name)
-  console.log(a,b)
-  return "hello"
+ const next=()=>{
+  currIndex++
+  return {value:this[currIndex], done:this.length<=currIndex}
 }
-let obj={
-  name:"kirti"
+  return {next:next}
 }
-Function.prototype.customCall=function(...rest){
-  let values=[...rest]
- let [obj,...data]=values
- let key=Symbol("uniqueKeyForCall")
-  let callObj={
-  ...obj,
-    [key]:this
-  }
-  return callObj[key](...data)
-
-}
-console.log(printName.customCall(obj,"1","2")) 
-
-
-
+let data=arr.customIterator()
+console.log(data.next())
+console.log(data.next())
+console.log(data.next())
+console.log(data.next())
+console.log(data.next())
