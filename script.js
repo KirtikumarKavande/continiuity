@@ -1,10 +1,14 @@
-function callDemo(data){
-    console.log(data)
-console.log(this.name)
+let arr=[5,3,1,9,23,54,22]
+
+for (let i = 0; i < arr.length-1; i++) {
+    for (let j = 0; j < arr.length-1-i; j++) {
+       if(arr[j]>arr[j+1]){
+        [arr[j],arr[j+1]]=[arr[j+1],arr[j]]
+        
+       }
+      
+    }
+    
 }
 
-let obj={
-    name:'a'
-}
-
-callDemo.apply(obj,[2,34,6,8])
+console.log(arr)
