@@ -1,14 +1,20 @@
-let arr=[5,3,1,9,23,54,22]
+function Parent(name,age) {
+    this.name=name;
+    this.age=age
+    
+}
 
-for (let i = 0; i < arr.length-1; i++) {
-    for (let j = 0; j < arr.length-1-i; j++) {
-       if(arr[j]>arr[j+1]){
-        [arr[j],arr[j+1]]=[arr[j+1],arr[j]]
-        
-       }
-      
+
+
+function Child(name,age,clg) {
+    this.clg=clg
+    Parent.call(this,name,age)
+
+    this.printDetails=function(){
+      console.log(this.name,this.age, this.clg)  
     }
     
 }
 
-console.log(arr)
+let data= new Child("kirti",10,"GCEK")
+data.printDetails()
