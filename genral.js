@@ -1,13 +1,23 @@
-const str = "Hello, World! xyz";
+let arr = [-10, -10, -10];
 
-// substring examples
-console.log(str.substring(0, 5)); // "Hello" (start=0, end=5)
-console.log(str.substring(7));    // "World!" (start=7, end not provided)
-console.log(str.substring(5, 0)); // "Hello" (start > end, indices swapped)
-console.log(str.substring(-5, 5)); // "Hello" (negative start treated as 0)
 
-// slice examples
-console.log(str.slice(0, 5));     // "Hello" (start=0, end=5)
-console.log(str.slice(7));        // "World!" (start=7, end not provided)
-console.log(str.slice(5, 0));     // "" (start > end, returns empty string)
-console.log(str.slice(-6, -1));   // "World" (negative indices count from end)
+
+
+function secondLargest(arr){
+  
+  let larget=-Infinity
+  let secLargest=-Infinity
+  
+  for(const ele of arr){
+    if(ele>larget){
+      secLargest=larget
+      larget=ele
+}else if(ele>secLargest && ele !==larget){
+      secLargest=ele
+    }
+  }
+  
+  return secLargest
+}
+
+console.log(secondLargest(arr));

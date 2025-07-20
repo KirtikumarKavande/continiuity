@@ -1,4 +1,13 @@
-span {
-    background: yellow;
-    padding: 20px;
-  }
+header{
+  display: flex;
+}
+#modal{
+  height: 60vh;
+  width: 60vw;
+  border: 2px solid gray;
+  display: none;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+}
