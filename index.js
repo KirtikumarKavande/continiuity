@@ -3,10 +3,7 @@ this.mainQueue=[]
 this.helperQueue=[]
 };
 
-/** 
- * @param {number} x
- * @return {void}
- */
+
 MyStack.prototype.push = function(x) {
     this.mainQueue.push(x)
 };
@@ -19,9 +16,7 @@ MyStack.prototype.keepOnlyOneElementInArray=function(){
     }
 }
 
-/**
- * @return {number}
- */
+
 MyStack.prototype.pop = function() {
    this.keepOnlyOneElementInArray()
     let lastEle= this.mainQueue.shift()
@@ -30,9 +25,7 @@ MyStack.prototype.pop = function() {
     return lastEle
 };
 
-/**
- * @return {number}
- */
+
 MyStack.prototype.top = function() {
    this.keepOnlyOneElementInArray()
     let top= this.mainQueue.shift()
@@ -43,9 +36,7 @@ MyStack.prototype.top = function() {
    
 };
 
-/**
- * @return {boolean}
- */
+
 MyStack.prototype.empty = function() {
     return this.mainQueue.length===0?true:false
 };
